@@ -1,0 +1,22 @@
+.container {
+    max-width: 50rem;
+    padding: 0 1rem;
+    margin: auto ;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    background-color: #1c2e4a;
+  }
+
+  .header h2 {
+    font-size: 4em;
+    font-family: Bookman;
+    color: white;
+    padding: 15px;
+  }
+  
+  .main {
+    height: calc(100% - 30em);
+  }
