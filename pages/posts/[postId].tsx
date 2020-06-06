@@ -21,7 +21,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { postId } = context.params
   // @ts-ignore
   const post = await postsAPI.getPost(postId)
-  console.log(post, '_____________________________________')
   return {props: {post}} 
 }
 

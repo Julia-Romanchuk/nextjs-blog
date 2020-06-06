@@ -1,14 +1,15 @@
 import '../styles/global.css'
-import { AppPropsType } from 'next/dist/next-server/lib/utils'
-import Layout from '../components/common/Layout'
-import { wrapper } from '../redux'
+import { Provider } from 'react-redux'
+import { AppProps } from 'next/app'
+import { useStore } from '../redux'
 
-const App = ({Component, pageProps}: AppPropsType) => {
-    return (
-        <Layout home> 
-            <Component {...pageProps} /> 
-        </Layout>
-    ) 
+export default function App({ Component, pageProps}: AppProps) {
+  // @ts-ignore
+  const store = useStore(pageProps.initialReduxState)
+
+  return (
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
+  )
 }
-
-export default wrapper.withRedux(App);

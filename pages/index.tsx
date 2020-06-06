@@ -1,30 +1,23 @@
 import Head from 'next/head'
-import Layout from '../components/common/Layout'
-import Link from 'next/link'
-import postsAPI from '../API/posts'
 import Posts from '../components/Posts/Posts'
-import { connect, useDispatch, useSelector } from 'react-redux'
-import { AppStateType, wrapper } from '../redux'
 import { PostListItem } from '../_types_/posts.type'
-import { getPostsList } from '../redux/redusers/postsReduser' 
-import { useEffect } from 'react'
+import { FC, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { getPostsList, setPostsList } from '../redux/redusers/postsReduser'
+import { GetStaticProps } from 'next'
+import postsAPI from '../API/posts'
 
-//type MapStateProps = {
-//  posts: Array<PostListItem>
-//}
-//type MapDispatchProps = {
-//  getPostsList: () => void
-//}
+type HomeType = {
+  posts: Array<PostListItem>
+}
 
-const Home = () => {
+const Home: FC<HomeType> = ({posts}) => {
 
   const dispatch = useDispatch()
-  // @ts-ignore
-  const {posts} = useSelector(state => state.posts)
-
+  
   useEffect(() => {
-    dispatch(getPostsList())
-  }, [posts])
+    dispatch((setPostsList(posts)))
+  }, [dispatch])
 
   return (
     <>
@@ -36,9 +29,10 @@ const Home = () => {
   )
 }
 
-//Home.getInitialProps = async () => {
-//  const posts = await postsAPI.getPostsList()
-//  return { posts }
-//}
+export const getStaticProps: GetStaticProps = async (context) => {
+  const posts = await postsAPI.getPostsList()
+
+  return {props: {posts}}
+}
 
 export default Home
