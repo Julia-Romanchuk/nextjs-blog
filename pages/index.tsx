@@ -3,8 +3,8 @@ import Posts from '../components/Posts/Posts'
 import { PostListItem } from '../_types_/posts.type'
 import { FC, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { getPostsList, setPostsList } from '../redux/redusers/postsReduser'
-import { GetStaticProps } from 'next'
+import { setPostsList } from '../redux/redusers/postsReduser'
+import { GetServerSideProps } from 'next'
 import postsAPI from '../API/posts'
 
 type HomeType = {
@@ -14,7 +14,8 @@ type HomeType = {
 const Home: FC<HomeType> = ({posts}) => {
 
   const dispatch = useDispatch()
-  
+  // async req was already performed, by getStaticProps
+  // now add result of req to state
   useEffect(() => {
     dispatch((setPostsList(posts)))
   }, [dispatch])
@@ -29,9 +30,8 @@ const Home: FC<HomeType> = ({posts}) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const posts = await postsAPI.getPostsList()
-
   return {props: {posts}}
 }
 

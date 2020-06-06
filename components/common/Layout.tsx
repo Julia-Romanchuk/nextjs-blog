@@ -1,25 +1,32 @@
 import Head from 'next/head'
-import styles from './container.module.css'
 import Link from 'next/link'
+import { Container, Header, HeaderText } from '../../styles'
+import { FC, PropsWithChildren } from 'react'
+import Router from 'next/router'
 
-const Layout = ({ children, home }: any) => {
+const Layout: FC<PropsWithChildren<{}>> = ({ children }) => {
+
+  const redirectToHome = () => {
+    Router.push('/')
+  }
+
   return (
-    <div className={styles.container}>
+    <Container>
       <Head>
         <title>Posts</title>
       </Head>
 
-      <header className={styles.header}>
-        <h2>Develops Today</h2>
+      <Header >
+        <HeaderText onClick={redirectToHome} >Develops Today</HeaderText>
         <Link href="/posts/new" >
           <a>
             Create post
           </a>
         </Link>
-      </header>
+      </Header>
 
       <main>{children}</main>
-    </div>
+    </Container>
   )
 }
 

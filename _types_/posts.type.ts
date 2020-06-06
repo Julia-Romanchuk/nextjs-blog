@@ -1,14 +1,10 @@
+import { Comment } from './comment.type'
+
 export interface Post {
     title: string
     body: string
     id: number
     comments: Array<Comment> | []    
-}
-
-export type Comment = {
-    id: number
-    postId: number
-    body: string
 }
 
 export type PostListItem = {

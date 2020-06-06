@@ -1,19 +1,39 @@
 import React, { FC } from 'react'
 import { Post } from '../../_types_/posts.type'
 import Commments from './Comments'
+import Link from 'next/link'
+import { CommentData } from '../../_types_/comment.type'
+import { PostTitle, PostBoby, Button } from '../../styles'
 
 type PostType = {
     post: Post
+    onPostDelete: (postId: number) => void
+    addComment: (commentData: CommentData) => void
 }
 
-const PostComponent: FC<PostType> = ({post}) => {
+const PostComponent: FC<PostType> = (props) => {
+
+    const {post, onPostDelete, addComment} = props
+
+    const onDeleteHandler = (e) => {
+        onPostDelete(post.id)
+    }
+
+    const onAddComment = (commentText: string) => {
+        const commentData = {
+            postId: post.id,
+            body: commentText
+        }
+        addComment(commentData)
+    }
     
     return (
         <div>
-            <h3>{post.title}</h3>
-            <p>{post.body}</p>
-            <button> Delete post </button>
-            {post.comments !== [] && <Commments comments={post.comments} />}
+            <Link href='/'> Home </Link>
+            <PostTitle>{post.title}</PostTitle>
+            <PostBoby>{post.body}</PostBoby>
+            <Button onClick={onDeleteHandler}> Delete post </Button>
+            {post.comments !== [] && <Commments comments={post.comments} onAddComment={onAddComment} />}
         </div>
     )
 }

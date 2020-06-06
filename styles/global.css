@@ -1,3 +1,5 @@
+
+
 html,
 body {
   padding: 0;
@@ -13,7 +15,7 @@ body {
 }
 
 a {
-  color:red;
+  color:#ff8b3d;
   text-decoration: none;
 }
 
