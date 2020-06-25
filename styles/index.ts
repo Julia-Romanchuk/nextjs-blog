@@ -1,47 +1,46 @@
 import styled from 'styled-components'
 
 export const PostBlock = styled.div`
-    font-size: 15px;
-    width: 400px;
-    height: 200px;
-    border: 1px solid black;
-    padding: 15px;
-    float: left;
-    border-radius: 5px;
-    margin: 10px;
-    &:hover {
-        background: #f4f5f4; 
-        box-shadow: 0 0 10px rgba(0,0,0,0.3);
-        padding: 10px
+  font-size: 15px;
+  width: 400px;
+  height: 200px;
+  border: 1px solid black;
+  padding: 15px;
+  float: left;
+  border-radius: 5px;
+  margin: 10px;
+  &:hover {
+    background: #f4f5f4; 
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    padding: 10px
 `
 export const Container = styled.div`
-    margin: auto;
-    max-width: 840px;
+  margin: auto;
+  max-width: 840px;
 `
 export const Header = styled.header`
-    height: 150px;
-    background: #f4f5f4;
-    position: relative;
-    width: 100%;
-    padding: 20px;
-    text-align: center;
+  height: 150px;
+  background: #f4f5f4;
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
 `
 export const HeaderText = styled.h2`
   cursor: pointer;
 `
 
 export const NewPostBlock = styled.div`
-    border-radius:5px;
-    background-color:#f2f2f2;
-    padding:40px;
+  border-radius:5px;
+  background-color:#f2f2f2;
+  padding:40px;
 `
-
 export const Input = styled.input`
-width: 100%;
-padding: 12px 20px;
-margin: 8px 0;
-box-sizing: border-box;
-border: none;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
   border-bottom: 1px solid #ff8b3d;
   background-color:#f2f2f2;
   float: right;
@@ -49,11 +48,11 @@ border: none;
 `
 
 export const TextArea = styled.textarea`
-width: 100%;
-padding: 12px 20px;
-margin: 8px 0;
-box-sizing: border-box;
-border: none;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
   border-bottom: 1px solid #ff8b3d;
   background-color:#f2f2f2;
   float: right;
@@ -90,6 +89,5 @@ export const CommentItem = styled.li `
   padding: 5px;
   border-left: 1px solid lightgrey;
   margin: 15px;
-
 `
 

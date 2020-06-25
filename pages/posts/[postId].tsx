@@ -31,14 +31,13 @@ const PostPage: FC<PostType> = ({ post }) => {
   }
 
   return (
-    <PostComponent 
-      post={post} 
+    <PostComponent
+      post={post}  
       onPostDelete={onPostDelete}
       addComment={addComment} />
   )
 }
 
-// @ts-ignore
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { postId } = context.params
   const post = await postsAPI.getPost(+postId)

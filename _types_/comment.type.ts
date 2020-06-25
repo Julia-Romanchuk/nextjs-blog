@@ -4,7 +4,4 @@ export type Comment = {
     body: string
 }
 
-export type CommentData = {
-    postId: number
-    body: string
-}
+export type CommentData = Omit<Comment, 'id'>

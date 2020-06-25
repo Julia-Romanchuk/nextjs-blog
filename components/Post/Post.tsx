@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, SyntheticEvent } from 'react'
 import { Post } from '../../_types_/posts.type'
 import Commments from './Comments'
 import Link from 'next/link'
@@ -15,7 +15,7 @@ const PostComponent: FC<PostType> = (props) => {
 
     const {post, onPostDelete, addComment} = props
 
-    const onDeleteHandler = (e) => {
+    const onDeleteHandler = (e: SyntheticEvent<HTMLButtonElement>) => {
         onPostDelete(post.id)
     }
 
@@ -33,7 +33,7 @@ const PostComponent: FC<PostType> = (props) => {
             <PostTitle>{post.title}</PostTitle>
             <PostBoby>{post.body}</PostBoby>
             <Button onClick={onDeleteHandler}> Delete post </Button>
-            {post.comments !== [] && <Commments comments={post.comments} onAddComment={onAddComment} />}
+            {post.comments && <Commments comments={post.comments} onAddComment={onAddComment} />}
         </div>
     )
 }

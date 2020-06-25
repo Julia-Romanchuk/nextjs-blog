@@ -1,4 +1,4 @@
-import { FC, FormEvent, useState } from 'react'
+import { FC, FormEvent, useState, ChangeEvent, useCallback } from 'react'
 import { NewPost } from '../../_types_/posts.type'
 import { NewPostBlock, Input, TextArea, Button } from '../../styles'
 
@@ -8,27 +8,31 @@ type CreatePostFormType = {
 
 const CreatePostForm: FC<CreatePostFormType> = ({onCreatePost}) => {
 
-  const [postData, setPostData] = useState({
-      title: '',
-      body: ''
-    })
+  const [body, setBody] = useState('')
+  const [title, setTitle] = useState('')
 
-  const handleChange = (e) =>
-  setPostData({ ...postData, [e.target.name]: e.target.value })
+  const handleChangeBody = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setBody(e.target.value)
+  }, [])
 
-  const onSubmit = (e: FormEvent) => {
+  const handleChangeTitle = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value)
+  }, [])
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    onCreatePost(postData)
+    onCreatePost({body, title})
   }
 
   return (
     <NewPostBlock>
       <form onSubmit={onSubmit} >
-        <Input placeholder='Title' onChange={handleChange} value={postData.title} name='title' />
-        <TextArea placeholder='Text of the post' onChange={handleChange} value={postData.body} name="body" />
+        <Input placeholder='Title' onChange={handleChangeTitle} value={title} name='title' />
+        <TextArea placeholder='Text of the post' onChange={handleChangeBody} value={body} name="body" />
         <Button type="submit"> Create </Button>
       </form>
-    </NewPostBlock>)
+    </NewPostBlock>
+  )
 }
 
 export default CreatePostForm

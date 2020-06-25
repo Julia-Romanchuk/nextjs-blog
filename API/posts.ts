@@ -13,7 +13,6 @@ const postsAPI = {
     },
     async createPost (newPostData: NewPost) {
         const res = await axios.post<Post>('https://simple-blog-api.crew.red/posts', newPostData)
-        console.log(res.data)
         return res.data
     },
     async deletePost (postId: number) {

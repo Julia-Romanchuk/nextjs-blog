@@ -14,7 +14,8 @@ type HomeType = {
 const Home: FC<HomeType> = ({posts}) => {
 
   const dispatch = useDispatch()
-  // async req was already performed, by getStaticProps
+  
+  // async req was already performed by getStaticProps
   // now add result of req to state
   useEffect(() => {
     dispatch((setPostsList(posts)))
@@ -32,7 +33,7 @@ const Home: FC<HomeType> = ({posts}) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const posts = await postsAPI.getPostsList()
-  return {props: {posts}}
+  return {props: {posts: posts}}
 }
 
 export default Home

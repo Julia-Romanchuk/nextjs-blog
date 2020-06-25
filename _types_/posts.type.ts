@@ -1,23 +1,16 @@
 import { Comment } from './comment.type'
 
-export interface Post {
+export type Post = {
     title: string
     body: string
     id: number
     comments: Array<Comment> | []    
 }
 
-export type PostListItem = {
-    title: string
-    body: string
-    id: number
-}
+export type PostListItem = Omit<Post, 'comments'>
 
 export type PostsList = {
     posts: Array<PostListItem>
 }
 
-export type NewPost = {
-    title: string
-    body: string
-}
+export type NewPost = Omit<PostListItem, 'id'>

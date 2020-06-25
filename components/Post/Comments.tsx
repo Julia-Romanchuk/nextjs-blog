@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, ChangeEvent } from 'react'
 import { Comment } from '../../_types_/comment.type'
 import { CommentsList, CommentItem, Button, Input } from '../../styles'
 
@@ -7,16 +7,13 @@ type CommmentsType = {
     onAddComment: (commentText: string) => void
 }
 
-const Commments: FC<CommmentsType> = (props) => {
-
-    const {comments, onAddComment} = props
+const Commments: FC<CommmentsType> = ({comments, onAddComment}) => {
 
     const [commentText, setCommentText] = useState('')
 
-    const handleChange = (e) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
-        const target = e.target as HTMLInputElement
-        setCommentText(target.value)
+        setCommentText(e.target.value)
     }
 
     const onAddCommentHandler = (commentText: string) => {
@@ -24,8 +21,8 @@ const Commments: FC<CommmentsType> = (props) => {
     }
     
     const commentsList = comments.map((comment) => {
-        return <CommentItem key={comment.id} >{comment.body}</CommentItem>
-    })
+        return <CommentItem key={comment.id}>{comment.body}</CommentItem>
+    }) 
 
     return (
         <div>

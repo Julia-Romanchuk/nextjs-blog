@@ -1,14 +1,16 @@
-import { Post, NewPost, PostListItem } from "../../_types_/posts.type";
-import { Reducer, Dispatch } from "react";
-import postsAPI from "../../API/posts";
-import { AnyAction } from "redux";
-import { CommentData, Comment } from "../../_types_/comment.type";
+import { Post, NewPost, PostListItem } from "../../_types_/posts.type"
+import { Reducer, Dispatch } from "react"
+import postsAPI from "../../API/posts"
+import { CommentData, Comment } from "../../_types_/comment.type"
+import { ThunkAction } from "redux-thunk"
+import { AppStateType } from ".."
+import { Action } from "redux"
 
-const initialState = {
-    posts: null as Array<PostListItem> | Array<PostListItem>,
-    post: null as Post | Post,
-    isDeleted: null as boolean | boolean,
-    isCreated: null as boolean | boolean
+type InitialState = {
+    posts: null | Array<PostListItem>
+    post: null | Post,
+    isDeleted: null | boolean,
+    isCreated: null | boolean
 }
 
 type CombineActions = 
@@ -17,10 +19,18 @@ type CombineActions =
     ReturnType<typeof setDeletePostResult> |
     ReturnType<typeof setCreationPostResult> |
     ReturnType<typeof setComment>
-    
-type InitialState = typeof initialState
 
-export const postsReduser: Reducer<InitialState, /*CombineActions*/AnyAction> = (state = initialState, action) => {
+type ThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, undefined, A>
+type PostThunk = ThunkType<CombineActions>
+
+const initialState: InitialState = {
+    posts: null, 
+    post: null,
+    isDeleted: null,
+    isCreated: null
+}
+    
+export const postsReduser: Reducer<InitialState, CombineActions> = (state = initialState, action) => {
     switch (action.type) {
         case 'posts/SET_POSTS_LIST': 
             return {...state, posts: action.posts}
@@ -46,22 +56,22 @@ export const getPostsList = () => async (dispatch: Dispatch<CombineActions>) => 
     dispatch(setPostsList(resData.posts))
 }
 
-export const getPost = (postId: number) => async (dispatch: Dispatch<CombineActions>) => {
+export const getPost = (postId: number): PostThunk => async (dispatch) => {
     const post = await postsAPI.getPost(postId)
     dispatch(setPost(post))
 }
 
-export const createPost = (newPostData: NewPost) => async (dispatch: Dispatch<CombineActions>) => {
+export const createPost = (newPostData: NewPost): PostThunk => async (dispatch) => {
     const post = await postsAPI.createPost(newPostData)
     dispatch(setPost(post))
 }
 
-export const deletePost = (postId: number) => async (dispatch: Dispatch<CombineActions>) => {
+export const deletePost = (postId: number): PostThunk => async (dispatch) => {
     const result = await postsAPI.deletePost(postId)
     dispatch(setDeletePostResult(true))
 }
 
-export const addComment = (commentData: CommentData) => async (dispatch: Dispatch<CombineActions>) => {
+export const addComment = (commentData: CommentData): PostThunk => async (dispatch) => {
     const newComment = await postsAPI.addComment(commentData)
     dispatch(setComment(newComment))
 }
